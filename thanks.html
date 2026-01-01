@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特别鸣谢 - FM Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: orbFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,255,255,0.4) 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .orb3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,0,128,0.3) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                transform: translate(-50px, -30px) scale(1.05);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px rgba(0,255,255,0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(0,255,255,0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,255,255,0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:nth-child(1) { animation-delay: 0.2s; }
+        .section:nth-child(2) { animation-delay: 0.4s; }
+        .section:nth-child(3) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 2rem;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .shareholders {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .shareholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(0,255,255,0.5);
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .shareholder-name {
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,255,255,0.5);
+        }
+
+        .back-btn {
+            margin-top: 50px;
+            padding: 15px 50px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            border-radius: 50px;
+            color: #1a1a2e;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,255,255,0.3);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,255,255,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; margin-bottom: 40px; }
+            .section { padding: 25px; }
+            .section-title { font-size: 1.5rem; }
+            .section-content { font-size: 1rem; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb orb1"></div>
+    <div class="glow-orb orb2"></div>
+    <div class="glow-orb orb3"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="title">🙏 特别鸣谢 🙏</div>
+        
+        <div class="sections">
+            <div class="section">
+                <div class="section-title">
+                    <span></span>
+                    <span>股东</span>
+                </div>
+                <div class="section-content">
+                    感谢所有股东对FM Tool的信任与支持，是你们的投资让这个项目得以持续发展和壮大。
+                </div>
+                <div class="shareholders">
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <img src="b_6c549c819962205b166aedd5a2b48fc7.jpg" alt="王听">
+                        </div>
+                        <div class="shareholder-name">王听</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <img src="b_acb46219cb4a7c5616f816e7b67787f0.jpg" alt="小洺">
+                        </div>
+                        <div class="shareholder-name">小洺</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <img src="b_6dbf9a8d8013e0cdd50a84218f77cf75.jpg" alt="硝子">
+                        </div>
+                        <div class="shareholder-name">硝子</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <span></span>
+                    <span>技术支持</span>
+                </div>
+                <div class="section-content">
+                    感谢所有技术团队成员的辛勤付出，是你们的专业知识和不懈努力，确保了FM Tool的稳定运行和持续优化。
+                </div>
+                <div class="shareholders">
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <img src="b_6c549c819962205b166aedd5a2b48fc7.jpg" alt="王听">
+                        </div>
+                        <div class="shareholder-name">王听</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <div class="avatar-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">白</div>
+                        </div>
+                        <div class="shareholder-name">白纸</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <div class="avatar-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">易</div>
+                        </div>
+                        <div class="shareholder-name">易轩</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <div class="avatar-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">阿</div>
+                        </div>
+                        <div class="shareholder-name">阿风</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <div class="avatar-placeholder" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">难</div>
+                        </div>
+                        <div class="shareholder-name">难祈爱</div>
+                    </div>
+                    <div class="shareholder">
+                        <div class="avatar">
+                            <div class="avatar-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">随</div>
+                        </div>
+                        <div class="shareholder-name">随风</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <span></span>
+                    <span>合作伙伴</span>
+                </div>
+                <div class="section-content">
+                    感谢所有合作伙伴的鼎力相助，是你们的资源支持和深度合作，让FM Tool能够为更多用户提供优质服务。
+                </div>
+            </div>
+        </div>
+        
+        <button class="back-btn" onclick="window.close()">返回</button>
+    </div>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 8 + 3 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+                particle.style.background = `rgba(255,255,255,${Math.random() * 0.3 + 0.1})`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>

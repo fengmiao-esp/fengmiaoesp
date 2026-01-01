@@ -1,0 +1,652 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FM Tool - 导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: orbFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,255,255,0.4) 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(138,43,226,0.4) 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+
+        .orb3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,0,128,0.3) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+            75% {
+                transform: translate(-50px, -30px) scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            padding: 40px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0,255,255,0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .time-display {
+            margin-bottom: 40px;
+            z-index: 1;
+        }
+
+        .current-time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0,255,255,0.6);
+            letter-spacing: 2px;
+        }
+
+        .current-date {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px 30px;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(0,255,255,0.5);
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,255,255,0.3);
+        }
+
+        .nav-item:active {
+            transform: scale(0.98);
+        }
+
+        .nav-item .icon {
+            font-size: 1.5rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; margin-bottom: 20px; }
+            .current-time { font-size: 2rem; }
+            .current-date { font-size: 1rem; }
+            .nav-item { padding: 15px 20px; font-size: 1.1rem; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb orb1"></div>
+    <div class="glow-orb orb2"></div>
+    <div class="glow-orb orb3"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="logo">FM Tool</div>
+        
+        <div class="time-display">
+            <div class="current-time" id="currentTime">00:00:00</div>
+            <div class="current-date" id="currentDate">2026年1月1日 星期四</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="#" class="nav-item" onclick="handleDownload()">
+                <span class="icon">📥</span>
+                <span>项目下载</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="handleJoinGroup()">
+                <span class="icon">💬</span>
+                <span>加入交流群</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="handleThanks()">
+                <span class="icon">🙏</span>
+                <span>特别鸣谢</span>
+            </a>
+            
+            <a href="newyear.html" class="nav-item">
+                <span class="icon">🎊</span>
+                <span>跨年</span>
+            </a>
+            
+            <a href="#" class="nav-item" onclick="handleExit()">
+                <span class="icon">🚪</span>
+                <span>退出</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">© 2026 FM Tool</div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const weekday = weekdays[now.getDay()];
+            
+            document.getElementById('currentDate').textContent = `${year}年${month}月${day}日 ${weekday}`;
+        }
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 8 + 3 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+                particle.style.background = `rgba(255,255,255,${Math.random() * 0.3 + 0.1})`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function handleDownload() {
+            alert('项目下载功能即将上线！敬请期待 🚀');
+        }
+
+        function handleJoinGroup() {
+            window.open('https://qun.qq.com/universal-share/share?ac=1&authKey=oKO8U7f5Egt%2FViweX8a9gaI2HkTR9TFSpZcd0toQ%2FPq%2F7tYEqNZEceD3CdkS0%2FKF&busi_data=eyJncm91cENvZGUiOiIxMDc4NTk0Njg4IiwidG9rZW4iOiJ0SFZrUUVvcjRNVFk2V3kydWhpZEhPYTU3V0Q4U05DcUZ3NTc0dENDbERHNnI3NC95a1d0R1c0NU1Zb1RjSVI5IiwidWluIjoiMzI1NTcyMjY5MCJ9&data=VUVu6JrUFlJn7BgX9DdDClJOEK1gDTzI12ik4W01pWMZpNqK7KlicmMrGR90WPSO2p_Cv-jg5H4eIwl4cANFFQ&svctype=4&tempid=h5_group_info', '_blank');
+        }
+
+        function handleThanks() {
+            window.open('thanks.html', '_blank');
+        }
+
+        function handleExit() {
+            if (confirm('确定要退出吗？')) {
+                window.close();
+            }
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+        createParticles();
+    </script>
+</body>
+</html>
